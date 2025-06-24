@@ -12,10 +12,10 @@ jobs:
         with:
           python-version: 3.12
 
-      - name: Install OpenAI
+      - name: Install OpenAI + dependencies
         run: |
-          mkdir -p layer/python
-          pip install openai -t layer/python
+         mkdir -p layer/python
+         pip install "openai>=1.14.0" "jiter" -t layer/python
 
       - name: Zip the layer
         run: |
