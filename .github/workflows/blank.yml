@@ -1,0 +1,29 @@
+name: Build OpenAI Lambda Layer
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+
+      - name: Install OpenAI
+        run: |
+          mkdir -p layer/python
+          pip install openai -t layer/python
+
+      - name: Zip the layer
+        run: |
+          cd layer
+          zip -r ../openai-layer-python312.zip .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: openai-layer
+          path: openai-layer-python312.zip
